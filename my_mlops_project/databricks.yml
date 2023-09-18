@@ -1,0 +1,48 @@
+# The name of the bundle. run `databricks bundle schema` to see the full bundle settings schema.
+bundle:
+  name: my-mlops-project
+
+
+variables:
+  experiment_name:
+    description: Experiment name for the model training.
+    default: /Users/${workspace.current_user.userName}/${bundle.environment}-my-mlops-project-experiment
+  model_name:
+    description: Model name for the model training.
+    default: ${bundle.environment}-my-mlops-project-model
+
+
+include:
+  # Include ML artifact resources for the ml project
+  # Defines model and experiment
+  - ./resources/ml-artifacts-resource.yml
+
+  # Include workflow resources of the ml project
+  # Defines workflow for model training -> validation -> deployment
+  - ./resources/model-workflow-resource.yml
+  # Defines workflow for scheduled batch inference
+  - ./resources/batch-inference-workflow-resource.yml
+  # Defines workflow for data monitoring, metric refresh, alerts and triggering retraining
+  - ./resources/monitoring-workflow-resource.yml
+
+
+# Environment specific values for workspace
+environments:
+  dev:
+    default: true
+    workspace:
+      # TODO: add dev workspace URL
+      host:
+
+  staging:
+    workspace:
+      host: https://e2-dogfood.staging.cloud.databricks.com
+
+  prod:
+    workspace:
+      host: https://e2-dogfood.staging.cloud.databricks.com
+
+  test:
+    workspace:
+      host: https://e2-dogfood.staging.cloud.databricks.com
+
