@@ -27,10 +27,12 @@ targets:
   staging:
     workspace:
       host: https://adb-5867961983879510.0.dev.azuredatabricks.net
+      azure_login_app_id: 62a912ac-b58e-4c1d-89ea-b2dbfc7358fc
 
   prod:
     workspace:
       host: https://adb-6249134709800315.5.dev.azuredatabricks.net
+      azure_login_app_id: 62a912ac-b58e-4c1d-89ea-b2dbfc7358fc
 
   test:
     workspace:
